@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adem wahebi</title>
+    <link href="didima.css" rel="stylesheet">
+    <style>
+        .video-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            padding: 20px;
+            display: none;
+        }
+
+        .video-modal video {
+            width: 100%;
+            max-width: 800px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .close-btn {
+            background-color: #35aadc;
+            font-weight: bold;
+            padding: 15px 60px;
+            margin-top: 20px;
+            text-align: center;
+            color: #fff;
+            border-radius: 8px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .close-btn:hover {
+            background-color: #3047abc4;
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(53, 212, 220, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div id="qrcode"></div>
+    <div class="overlay"></div>
+    <div class="container">
+        <img src="LOGO.svg" alt="Logo" class="logo">
+        <h1>Bienvenue sur notre page de vidéo 3D</h1>
+        <div class="button-container">
+            <button onclick="openVideo('videos/video_3D.mp4')" class="btn">Vidéo 3D</button>
+        </div>
+    </div>
+
+    <div class="video-modal" id="videoModal">
+        <video controls id="videoPlayer"></video>
+        <button class="close-btn" onclick="closeVideo()">Retour</button>
+    </div>
+
+    <!-- Script QR Code externe -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <!-- Script personnalisé -->
+    <script>
+        function openVideo(src) {
+            const modal = document.getElementById('videoModal');
+            const videoPlayer = document.getElementById('videoPlayer');
+            videoPlayer.src = src;
+            modal.style.display = 'flex';
+            videoPlayer.play();
+        }
+
+        function closeVideo() {
+            const modal = document.getElementById('videoModal');
+            const videoPlayer = document.getElementById('videoPlayer');
+            videoPlayer.pause();
+            videoPlayer.currentTime = 0;
+            modal.style.display = 'none';
+        }
+
+        // Génération du QR code
+        var siteURL = "https://votresite.com";
+        new QRCode(document.getElementById("qrcode"), {
+            text: siteURL,
+            width: 128,
+            height: 128,
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
+        });
+    </script>
+</body>
+</html>
